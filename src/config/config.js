@@ -10,6 +10,7 @@ const envVarsSchema = Joi.object()
     PORT: Joi.number().default(3000),
     MONGODB_URL: Joi.string().required().description('Mongo DB url'),
     JWT_SECRET: Joi.string().required().description('JWT secret key'),
+    JWT_WALLET_SIGN_SECRET: Joi.string().required().description('JWT wallet sign secret key'),
     JWT_ACCESS_EXPIRATION_MINUTES: Joi.number().default(30).description('minutes after which access tokens expire'),
     JWT_REFRESH_EXPIRATION_DAYS: Joi.number().default(30).description('days after which refresh tokens expire'),
     JWT_RESET_PASSWORD_EXPIRATION_MINUTES: Joi.number()
@@ -17,6 +18,9 @@ const envVarsSchema = Joi.object()
       .description('minutes after which reset password token expires'),
     JWT_VERIFY_EMAIL_EXPIRATION_MINUTES: Joi.number()
       .default(10)
+      .description('minutes after which verify email token expires'),
+    JWT_WALLET_SIGNATURE_EXPIRATION_MINUTES: Joi.number()
+      .default(5)
       .description('minutes after which verify email token expires'),
     SMTP_HOST: Joi.string().description('server that will send the emails'),
     SMTP_PORT: Joi.number().description('port to connect to the email server'),
@@ -45,10 +49,12 @@ module.exports = {
   },
   jwt: {
     secret: envVars.JWT_SECRET,
+    walletSignSecret: envVars.JWT_WALLET_SIGN_SECRET,
     accessExpirationMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,
     refreshExpirationDays: envVars.JWT_REFRESH_EXPIRATION_DAYS,
     resetPasswordExpirationMinutes: envVars.JWT_RESET_PASSWORD_EXPIRATION_MINUTES,
     verifyEmailExpirationMinutes: envVars.JWT_VERIFY_EMAIL_EXPIRATION_MINUTES,
+    verifySignWalletExpirationMinutes: envVars.JWT_WALLET_SIGNATURE_EXPIRATION_MINUTES,
   },
   email: {
     smtp: {

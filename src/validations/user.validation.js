@@ -45,10 +45,22 @@ const deleteUser = {
   }),
 };
 
+const linkPhantomWallet = {
+  params: Joi.object().keys({
+    userId: Joi.string().custom(objectId),
+  }),
+  body: Joi.object().keys({
+    originMessage: Joi.string(),
+    signedMessage: Joi.string(),
+    walletAddress: Joi.string(),
+  }),
+};
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
   deleteUser,
+  linkPhantomWallet,
 };
